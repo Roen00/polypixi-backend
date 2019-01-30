@@ -18,11 +18,11 @@ import scala.concurrent.duration._
 trait UserRoutes extends JsonSupport {
   implicit def system: ActorSystem
 
-  lazy val log = Logging(system, classOf[UserRoutes])
+  private lazy val log = Logging(system, classOf[UserRoutes])
 
   def userRegistryActor: ActorRef
 
-  implicit lazy val timeout: Timeout = Timeout(5.seconds) // usually we'd obtain the timeout from the system's configuration
+  private implicit lazy val timeout: Timeout = Timeout(5.seconds)
   lazy val userRoutes: Route =
     pathPrefix("users") {
       concat(

@@ -6,7 +6,7 @@ lazy val circeVersion = "0.11.1"
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
-      organization    := "zelek.rafal.backend",
+      organization    := "zelek.rafal",
       scalaVersion    := "2.12.7"
     )),
     name := "polypixi-backend",
@@ -18,6 +18,9 @@ lazy val root = (project in file(".")).
       "io.circe"          %% "circe-core"           % circeVersion,
       "io.circe"          %% "circe-generic"        % circeVersion,
       "io.circe"          %% "circe-parser"         % circeVersion,
+      "io.circe"          %% "circe-parser"         % circeVersion,
+
+      "zelek.rafal" %% "pms-parser" % "0.1-SNAPSHOT",
 
       "com.typesafe.akka" %% "akka-http-testkit"    % akkaHttpVersion % Test,
       "com.typesafe.akka" %% "akka-testkit"         % akkaVersion     % Test,
