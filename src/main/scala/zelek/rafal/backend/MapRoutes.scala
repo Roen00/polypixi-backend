@@ -1,8 +1,8 @@
 package zelek.rafal.backend
 
-import java.nio.file.{Files, Paths}
+import java.nio.file.{ Files, Paths }
 
-import akka.actor.{ActorRef, ActorSystem}
+import akka.actor.{ ActorSystem }
 import akka.event.Logging
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
@@ -20,8 +20,6 @@ trait MapRoutes extends JsonSupport with CORSHandler {
 
   private lazy val log = Logging(system, classOf[MapRoutes])
 
-  def userRegistryActor: ActorRef
-
   private implicit lazy val timeout: Timeout = Timeout(5.seconds)
 
   lazy val mapRoutes: Route =
@@ -29,15 +27,14 @@ trait MapRoutes extends JsonSupport with CORSHandler {
       pathPrefix("maps") {
         pathEnd {
           get {
-            val byteArray = Files.readAllBytes(Paths.get("/home/rafalzel/projects/pms-parser/src/main/scala/adt/ctf_Ash.pms"))
+            val byteArray = Files.readAllBytes(Paths.get("/home/rafalzel/Downloads/db_elemental/maps/db_elemental.PMS"))
             val hexValue = ByteVector(byteArray)
 
             val result = PmsFile.codec.decodeValue(hexValue.bits)
-            val value = result.toOption.get.polygons.take(10)
+            val value = result.toOption.get.polygons
             complete(value)
           }
         }
-      }
-    )
+      })
 
 }

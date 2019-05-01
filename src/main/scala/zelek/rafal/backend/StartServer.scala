@@ -1,23 +1,21 @@
 package zelek.rafal.backend
 
-import akka.actor.{ActorRef, ActorSystem}
+import akka.actor.{ ActorRef, ActorSystem }
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext, Future}
-import scala.util.{Failure, Success}
+import scala.concurrent.{ Await, ExecutionContext, Future }
+import scala.util.{ Failure, Success }
 import akka.http.scaladsl.server.Directives._
 
-object StartServer extends App with UserRoutes with MapRoutes{
+object StartServer extends App with MapRoutes {
   implicit val system: ActorSystem = ActorSystem("AkkaHttpServer")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executionContext: ExecutionContext = system.dispatcher
 
-  val userRegistryActor: ActorRef = system.actorOf(UserRegistryActor.props, "userRegistryActor")
-
-  lazy val routes: Route = concat(userRoutes, mapRoutes)
+  lazy val routes: Route = mapRoutes
   val serverBinding: Future[Http.ServerBinding] = Http().bindAndHandle(routes, "localhost", 8080)
   serverBinding.onComplete {
     case Success(bound) =>

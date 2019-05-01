@@ -2,18 +2,17 @@ package zelek.rafal.backend
 
 import akka.http.scaladsl.model.HttpMethods._
 import akka.http.scaladsl.model.headers._
-import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
+import akka.http.scaladsl.model.{ HttpResponse, StatusCodes }
 import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server.{Directive0, Route}
-
+import akka.http.scaladsl.server.{ Directive0, Route }
 
 trait CORSHandler {
   private val corsResponseHeaders = List(
     `Access-Control-Allow-Origin`.*,
     `Access-Control-Allow-Credentials`(true),
-    `Access-Control-Allow-Headers`("Authorization",
-      "Content-Type", "X-Requested-With")
-  )
+    `Access-Control-Allow-Headers`(
+      "Authorization",
+      "Content-Type", "X-Requested-With"))
 
   //this directive adds access control headers to normal responses
   private def addAccessControlHeaders: Directive0 = {

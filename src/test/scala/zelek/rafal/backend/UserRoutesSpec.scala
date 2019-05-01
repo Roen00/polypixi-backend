@@ -1,3 +1,4 @@
+/*
 package zelek.rafal.backend
 
 import akka.actor.ActorRef
@@ -47,3 +48,4 @@ class UserRoutesSpec extends WordSpec with Matchers with ScalaFutures with Scala
     }
   }
 }
+*/
